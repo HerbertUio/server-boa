@@ -7,5 +7,6 @@ public class CreateTicketDto
     public string Description { get; set; }
     public int? SubjectId { get; set; } 
     public int? OfficeId { get; set; }
+    public int? AreaId { get; set; }
     public int? TypeTicketId { get; set; }
 }

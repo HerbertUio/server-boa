@@ -34,6 +34,7 @@ public class CreateTicketCase
             dto.Description,
             dto.SubjectId,
             dto.OfficeId,
+            dto.AreaId,
             dto.TypeTicketId
         );
         

@@ -4,5 +4,6 @@ public enum TypeTicket
 {
     Consulta,
     Problema,
-    Requerimiento
+    Requerimiento,
+    FuncionalidadNueva
 }
