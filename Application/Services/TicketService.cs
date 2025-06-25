@@ -21,6 +21,7 @@ public class TicketService
     private readonly AssignTicketCase _assignTicketCase;
     private readonly GetCommentsByTicketIdCase _getCommentsByTicketIdCase;
     private readonly GetChildTicketsCase _getChildTicketsCase;
+    private readonly GetMergedTicketsCase _getMergedTicketsCase;
     
     public TicketService(
         CreateTicketCase createTicketCase,
@@ -35,7 +36,8 @@ public class TicketService
         AddCommentCase addCommentCase,
         AssignTicketCase assignTicketCase,
         GetCommentsByTicketIdCase getCommentsByTicketIdCase,
-        GetChildTicketsCase getChildTicketsCase)
+        GetChildTicketsCase getChildTicketsCase,
+        GetMergedTicketsCase getMergedTicketsCase)
     {
         _createTicketCase = createTicketCase;
         _changePriorityCase = changePriorityCase;
@@ -50,6 +52,7 @@ public class TicketService
         _assignTicketCase = assignTicketCase;
         _getCommentsByTicketIdCase = getCommentsByTicketIdCase;
         _getChildTicketsCase = getChildTicketsCase;
+        _getMergedTicketsCase = getMergedTicketsCase;
     }
 
     public async Task<TicketModel> CreateAsync(CreateTicketDto dto)
@@ -117,5 +120,9 @@ public class TicketService
     public async Task<IEnumerable<TicketModel>> GetChildTicketsAsync(int parentTicketId)
     {
         return await _getChildTicketsCase.ExecuteAsync(parentTicketId);
+    }
+    public async Task<IEnumerable<TicketModel>> GetMergedTicketsAsync(int primaryTicketId)
+    {
+        return await _getMergedTicketsCase.ExecuteAsync(primaryTicketId);
     }
 }

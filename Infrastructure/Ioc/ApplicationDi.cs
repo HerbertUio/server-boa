@@ -40,6 +40,7 @@ public static class ApplicationDi
         collection.AddScoped<AssignTicketCase>();
         collection.AddScoped<GetCommentsByTicketIdCase>();
         collection.AddScoped<GetChildTicketsCase>();
+        collection.AddScoped<GetMergedTicketsCase>();
         return collection;
     }
     public static IServiceCollection RegisterRepositories(this IServiceCollection collection)

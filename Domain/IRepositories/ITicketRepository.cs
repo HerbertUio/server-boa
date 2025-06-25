@@ -14,4 +14,5 @@ public interface ITicketRepository: IGenericRepository<TicketModel>
     Task<TicketModel> AssignTicketAsync(int ticketId, int? agentId, int? groupId);
     Task<IEnumerable<CommentModel>> GetCommentsByTicketIdAsync(int ticketId);
     Task<IEnumerable<TicketModel>> GetChildTicketsAsync(int parentTicketId);
+    Task<IEnumerable<TicketModel>> GetMergedTicketsAsync(int primaryTicketId);
 }

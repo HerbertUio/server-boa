@@ -235,4 +235,14 @@ public class TicketRepository: ITicketRepository
             .ToListAsync();
         return childEntities.Select(ToModel);
     }
+
+    public async Task<IEnumerable<TicketModel>> GetMergedTicketsAsync(int primaryTicketId)
+    {
+        var mergedEntities = await _context.Tickets
+            .Where(t => t.PrimaryTicketId == primaryTicketId)
+            .AsNoTracking()
+            .ToListAsync();
+    
+        return mergedEntities.Select(ToModel);
+    }
 }
