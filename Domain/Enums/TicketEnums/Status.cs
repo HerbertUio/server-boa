@@ -6,5 +6,7 @@ public enum Status
     Cerrado,
     Reabierto,
     Resuelto,
-    Pendiente
+    Pendiente,
+    EsperandoRespuestaUsuario,
+    EsperandoRespuesta2daLinea 
 }

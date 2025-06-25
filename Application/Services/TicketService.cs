@@ -17,6 +17,10 @@ public class TicketService
     private readonly DeleteTicketCase _deleteTicketCase;
     private readonly MergeTicketsCase _mergeTicketsCase;
     private readonly UnmergeTicketsCase _unmergeTicketsCase;
+    private readonly AddCommentCase _addCommentCase;
+    private readonly AssignTicketCase _assignTicketCase;
+    private readonly GetCommentsByTicketIdCase _getCommentsByTicketIdCase;
+    private readonly GetChildTicketsCase _getChildTicketsCase;
     
     public TicketService(
         CreateTicketCase createTicketCase,
@@ -27,7 +31,11 @@ public class TicketService
         GetAllTicketsCase getAllTicketsCase,
         DeleteTicketCase deleteTicketCase,
         MergeTicketsCase mergeTicketsCase,
-        UnmergeTicketsCase unmergeTicketsCase)
+        UnmergeTicketsCase unmergeTicketsCase,
+        AddCommentCase addCommentCase,
+        AssignTicketCase assignTicketCase,
+        GetCommentsByTicketIdCase getCommentsByTicketIdCase,
+        GetChildTicketsCase getChildTicketsCase)
     {
         _createTicketCase = createTicketCase;
         _changePriorityCase = changePriorityCase;
@@ -38,6 +46,10 @@ public class TicketService
         _deleteTicketCase = deleteTicketCase;
         _mergeTicketsCase = mergeTicketsCase;
         _unmergeTicketsCase = unmergeTicketsCase;
+        _addCommentCase = addCommentCase;
+        _assignTicketCase = assignTicketCase;
+        _getCommentsByTicketIdCase = getCommentsByTicketIdCase;
+        _getChildTicketsCase = getChildTicketsCase;
     }
 
     public async Task<TicketModel> CreateAsync(CreateTicketDto dto)
@@ -84,5 +96,26 @@ public class TicketService
     {
         var result = await _unmergeTicketsCase.ExecuteAsync(dto);
         return result;
+    }
+    public async Task<TicketModel> AddCommentAsync(int ticketId, AddCommentDto dto)
+    {
+        var result = await _addCommentCase.ExecuteAsync(ticketId, dto);
+        return result;
+    }
+    
+    public async Task<TicketModel> AssignTicketAsync(int ticketId, AssignTicketDto dto)
+    {
+        return await _assignTicketCase.ExecuteAsync(ticketId, dto);
+    }
+    
+    
+    public async Task<IEnumerable<CommentModel>> GetCommentsByTicketIdAsync(int ticketId)
+    {
+        return await _getCommentsByTicketIdCase.ExecuteAsync(ticketId);
+    }
+    
+    public async Task<IEnumerable<TicketModel>> GetChildTicketsAsync(int parentTicketId)
+    {
+        return await _getChildTicketsCase.ExecuteAsync(parentTicketId);
     }
 }

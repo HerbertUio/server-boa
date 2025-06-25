@@ -10,6 +10,12 @@ public class UpdateTicketCase
     private readonly ITicketRepository _ticketRepository;
     private IValidator<UpdateTicketDto> _validator;
     
+    public UpdateTicketCase(ITicketRepository ticketRepository, IValidator<UpdateTicketDto> validator)
+    {
+        _ticketRepository = ticketRepository;
+        _validator = validator;
+    }
+    
     public async Task<TicketModel> ExecuteAsync(int id, UpdateTicketDto dto)
     {
         var validationResult = await _validator.ValidateAsync(dto);
