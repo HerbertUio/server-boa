@@ -201,4 +201,47 @@ public class TicketController : ControllerBase
         catch (KeyNotFoundException ex) { return NotFound(ex.Message); }
         catch (Exception ex) { return StatusCode(500, $"Error interno del servidor: {ex.Message}"); }
     }
+    
+    [HttpPost("{id}/comments")]
+    public async Task<IActionResult> AddCommentToTicket(int id, [FromBody] AddCommentDto dto)
+    {
+        try
+        {
+            var updatedTicket = await _ticketService.AddCommentAsync(id, dto);
+            return Ok(updatedTicket.Comments.LastOrDefault()); 
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
+        catch (ValidationException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Error interno del servidor: {ex.Message}");
+        }
+    }
+    [HttpPut("{id}/priority")]
+    public async Task<IActionResult> ChangeTicketPriority(int id, [FromBody] ChangePriorityDto dto)
+    {
+        try
+        {
+            var updatedTicket = await _ticketService.ChangePriorityAsync(id, dto);
+            return Ok(updatedTicket);
+        }
+        catch (KeyNotFoundException ex)
+        {
+            return NotFound(ex.Message);
+        }
+        catch (ArgumentException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Error interno del servidor: {ex.Message}");
+        }
+    }
 }
