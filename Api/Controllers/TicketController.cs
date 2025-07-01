@@ -16,7 +16,6 @@ public class TicketController : ControllerBase
         _ticketService = ticketService;
     }
 
-    // POST: /api/tickets
     [HttpPost]
     public async Task<IActionResult> CreateTicket([FromBody] CreateTicketDto dto)
     {
@@ -35,7 +34,6 @@ public class TicketController : ControllerBase
         }
     }
 
-    // GET: /api/tickets
     [HttpGet]
     public async Task<IActionResult> GetAllTickets()
     {
@@ -50,7 +48,6 @@ public class TicketController : ControllerBase
         }
     }
 
-    // GET: /api/tickets/{id}
     [HttpGet("{id}")]
     public async Task<IActionResult> GetTicketById(int id)
     {
@@ -69,7 +66,6 @@ public class TicketController : ControllerBase
         }
     }
 
-    // PUT: /api/tickets/{id}
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateTicket(int id, [FromBody] UpdateTicketDto dto)
     {
@@ -91,8 +87,7 @@ public class TicketController : ControllerBase
             return StatusCode(500, $"Error interno del servidor: {ex.Message}");
         }
     }
-
-    // DELETE: /api/tickets/{id}
+    
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteTicket(int id)
     {
@@ -110,8 +105,6 @@ public class TicketController : ControllerBase
             return StatusCode(500, $"Error interno del servidor: {ex.Message}");
         }
     }
-
-    // --- Endpoints de Acciones Específicas ---
 
     [HttpPut("{id}/status")]
     public async Task<IActionResult> ChangeTicketStatus(int id, [FromBody] ChangeStatusDto dto)
@@ -163,8 +156,6 @@ public class TicketController : ControllerBase
         catch (InvalidOperationException ex) { return BadRequest(ex.Message); }
         catch (Exception ex) { return StatusCode(500, $"Error interno del servidor: {ex.Message}"); }
     }
-
-    // --- Endpoints para Obtener Datos Relacionados ---
 
     [HttpGet("{id}/comments")]
     public async Task<IActionResult> GetCommentsForTicket(int id)
